@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    title Poll
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous")
+    != css("application")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    != js("application")
+    
+    block head
+  body
+    div(class="messages")
+    
+    div(class="navbar is-dark", role="navigation", aria-label="main navigation")
+      div(class="container")
+        div(class="navbar-brand")
+          a(href="/" class="navbar-item has-text-weight-bold is-size-5") Polls
+        div(class="navbar-menu")
+          div(class="navbar-end")
+            if user
+              a(href="/logout" class="navbar-item") Logout
+            else
+              a(href="/login" class="navbar-item") Login
+              div(class="navbar-item")
+                a(href="/register" class="button is-info") Register
+
+    block content
+      
+    script
+      if flash && flash.shift
+        while message = flash.shift()
+          | growl("#{message.type}", "#{message.message}");

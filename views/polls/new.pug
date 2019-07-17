@@ -1,0 +1,41 @@
+extend ../layout
+
+block content
+  include ../mixins.pug
+  div(class="poll-form-page")
+    section(class="section")
+      div(class="container")
+        div(class="columns is-centered")
+          div(class="column is-half")
+            div(class="card")
+              div(class="card-header")
+                div(class="card-header-title") New Poll
+
+              form(action="/polls", method="post")
+                div(class="card-content")
+                  div(class="field")
+                    label(for="name", class="label") Name
+                    input(id="name" type="text", name="name", class="input" + (errors && errors.name ? " is-danger" : ""))
+                    +error(errors, "name")
+                  div(class="field")
+                    label(for="description", class="label") Description
+                    div: textarea(id="description", name="description", class="textarea")
+                  div(class="options")
+                    label(class="label") Options
+                    div(class="field")
+                      input(type="text", name="options[0][text]", class="input" + (errors && errors["options.0.text"] ? " is-danger" : ""), placeholder="Option 1")
+                      +error(errors, "options.0.text")
+                    div(class="field")
+                      input(type="text", name="options[1][text]", class="input" + (errors && errors["options.1.text"] ? " is-danger" : ""), placeholder="Option 2")
+                      +error(errors, "options.1.text")
+
+                  div
+                    a(href="#", class="add-option") Add option
+
+                div(class="card-footer")
+                  div(class="card-footer-item justify-content-between")
+                    a(href="/") Cancel
+                    button(type="submit", class="button is-primary") Create Poll
+
+  script.
+    new PollFormView();
